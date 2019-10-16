@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends Public_Controller {
 	
+	public function __construct() {
+		parent::__construct();        
+		$this->load->model('category_model');      
+		$this->load->model('post_model');      
+	}
+	
 	/**
      * Display a listing of the resource.
      *

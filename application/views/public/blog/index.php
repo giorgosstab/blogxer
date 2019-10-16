@@ -51,132 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <!-- <div class="blog-box-layout4">
-                    <div class="item-img">
-                        <a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog151.jpg" alt="blog"></a>
-                    </div>
-                    <div class="item-content">
-                        <ul class="entry-meta meta-color-dark">
-                            <li><i class="fas fa-tag"></i>Finance</li>
-                            <li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-                            <li><i class="far fa-clock"></i>5 Mins Read</li>
-                        </ul>
-                        <h3 class="item-title"><a href="single-blog.html">Pebble time steel is on track 2019  to ship in January</a></h3>
-                        <p>Phasellus lorem ligula, semper vehicula dolor vitae eleifen deary dolor vitae eleifen deary deary deary mattis sem.</p>
-                        <div class="action-area">
-                            <a href="single-blog.html" class="item-btn">READ MORE<i class="fas fa-arrow-right"></i></a>
-                            <ul class="response-area">
-                                <li><a href="#"><i class="far fa-heart"></i>12</a></li>
-                                <li><a href="#"><i class="far fa-comment"></i>02</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-box-layout4">
-                    <div class="item-img">
-                        <a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog152.jpg" alt="blog"></a>
-                    </div>
-                    <div class="item-content">
-                        <ul class="entry-meta meta-color-dark">
-                            <li><i class="fas fa-tag"></i>Finance</li>
-                            <li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-                            <li><i class="far fa-clock"></i>5 Mins Read</li>
-                        </ul>
-                        <h3 class="item-title"><a href="single-blog.html">Pebble time steel is on track 2019  to ship in January</a></h3>
-                        <p>Phasellus lorem ligula, semper vehicula dolor vitae eleifen deary dolor vitae eleifen deary deary deary mattis sem.</p>
-                        <div class="action-area">
-                            <a href="single-blog.html" class="item-btn">READ MORE<i class="fas fa-arrow-right"></i></a>
-                            <ul class="response-area">
-                                <li><a href="#"><i class="far fa-heart"></i>12</a></li>
-                                <li><a href="#"><i class="far fa-comment"></i>02</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-box-layout4">
-                    <div class="item-img">
-                        <a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog153.jpg" alt="blog"></a>
-                    </div>
-                    <div class="item-content">
-                        <ul class="entry-meta meta-color-dark">
-                            <li><i class="fas fa-tag"></i>Finance</li>
-                            <li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-                            <li><i class="far fa-clock"></i>5 Mins Read</li>
-                        </ul>
-                        <h3 class="item-title"><a href="single-blog.html">Pebble time steel is on track 2019  to ship in January</a></h3>
-                        <p>Phasellus lorem ligula, semper vehicula dolor vitae eleifen dolor vitae eleifen deary deary deary deary mattis sem.</p>
-                        <div class="action-area">
-                            <a href="single-blog.html" class="item-btn">READ MORE<i class="fas fa-arrow-right"></i></a>
-                            <ul class="response-area">
-                                <li><a href="#"><i class="far fa-heart"></i>12</a></li>
-                                <li><a href="#"><i class="far fa-comment"></i>02</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-box-layout4">
-                    <div class="item-img">
-                        <a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog154.jpg" alt="blog"></a>
-                    </div>
-                    <div class="item-content">
-                        <ul class="entry-meta meta-color-dark">
-                            <li><i class="fas fa-tag"></i>Finance</li>
-                            <li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-                            <li><i class="far fa-clock"></i>5 Mins Read</li>
-                        </ul>
-                        <h3 class="item-title"><a href="single-blog.html">Pebble time steel is on track 2019  to ship in January</a></h3>
-                        <p>Phasellus lorem ligula, semper vehicula dolor vitae eleifen deary dolor vitae eleifen deary deary deary mattis sem.</p>
-                        <div class="action-area">
-                            <a href="single-blog.html" class="item-btn">READ MORE<i class="fas fa-arrow-right"></i></a>
-                            <ul class="response-area">
-                                <li><a href="#"><i class="far fa-heart"></i>12</a></li>
-                                <li><a href="#"><i class="far fa-comment"></i>02</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-box-layout4">
-                    <div class="item-img">
-                        <a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog155.jpg" alt="blog"></a>
-                    </div>
-                    <div class="item-content">
-                        <ul class="entry-meta meta-color-dark">
-                            <li><i class="fas fa-tag"></i>Finance</li>
-                            <li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-                            <li><i class="far fa-clock"></i>5 Mins Read</li>
-                        </ul>
-                        <h3 class="item-title"><a href="single-blog.html">Pebble time steel is on track 2019  to ship in January</a></h3>
-                        <p>Phasellus lorem ligula, semper vehicula dolor vitae eleifen deary dolor vitae eleifen deary deary deary mattis sem.</p>
-                        <div class="action-area">
-                            <a href="single-blog.html" class="item-btn">READ MORE<i class="fas fa-arrow-right"></i></a>
-                            <ul class="response-area">
-                                <li><a href="#"><i class="far fa-heart"></i>12</a></li>
-                                <li><a href="#"><i class="far fa-comment"></i>02</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-box-layout4">
-                    <div class="item-img">
-                        <a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog158.jpg" alt="blog"></a>
-                    </div>
-                    <div class="item-content">
-                        <ul class="entry-meta meta-color-dark">
-                            <li><i class="fas fa-tag"></i>Finance</li>
-                            <li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-                            <li><i class="far fa-clock"></i>5 Mins Read</li>
-                        </ul>
-                        <h3 class="item-title"><a href="single-blog.html">Pebble time steel is on track 2019  to ship in January</a></h3>
-                        <p>Phasellus lorem ligula, semper vehicula dolor vitae eleifen deary dolor vitae eleifen deary deary deary mattis sem.</p>
-                        <div class="action-area">
-                            <a href="single-blog.html" class="item-btn">READ MORE<i class="fas fa-arrow-right"></i></a>
-                            <ul class="response-area">
-                                <li><a href="#"><i class="far fa-heart"></i>12</a></li>
-                                <li><a href="#"><i class="far fa-comment"></i>02</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="pagination-layout1">
                     <ul>
                         <li class="active"><a href="#">1</a></li>
@@ -184,6 +58,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li><a href="#">3</a></li>
                     </ul>
                 </div>
+                
+                <div class="pagination">
+                    <?php echo $this->pagination->create_links(); ?>
+                </div>
+                
             </div>
             <div class="col-xl-4 col-lg-4 sidebar-widget-area sidebar-break-md">
                 <div class="widget">
@@ -284,41 +163,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="widget-categories">
                         <ul>
-                            <li>
-                                <a href="#">Beauty
-                                    <span>(35)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Fashion
-                                    <span>(10)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Food
-                                    <span>(25)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Life Style
-                                    <span>(15)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Travel
-                                    <span>(22)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Video
-                                    <span>(18)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Technology
-                                    <span>(22)</span>
-                                </a>
-                            </li>
+                            <?php foreach($data['categories'] as $category) : ?>
+                                <li>
+                                    <a href="#"><?php echo $category['title']; ?>
+                                        <span>(35)</span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>

@@ -2,37 +2,26 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP
+ * An open source application development framework for PHP 5.2.4 or newer
  *
- * This content is released under the MIT License (MIT)
+ * NOTICE OF LICENSE
  *
- * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ * Licensed under the Open Software License version 3.0
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @package	CodeIgniter
- * @author	EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
- * @license	https://opensource.org/licenses/MIT	MIT License
- * @link	https://codeigniter.com
- * @since	Version 1.0.0
+ * @package		CodeIgniter
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ * @link		http://codeigniter.com
+ * @since		Version 1.0
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -42,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @category	Database
  * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
+ * @link		http://codeigniter.com/user_guide/database/
  */
 abstract class CI_DB_forge {
 
@@ -73,6 +62,13 @@ abstract class CI_DB_forge {
 	 * @var	array
 	 */
 	public $primary_keys	= array();
+
+	/**
+	 * Foreign Keys data
+	 *
+	 * @var	array
+	 */
+	public $foreign_keys	= array();
 
 	/**
 	 * Database character set
@@ -143,7 +139,7 @@ abstract class CI_DB_forge {
 	protected $_unsigned		= TRUE;
 
 	/**
-	 * NULL value representation in CREATE/ALTER TABLE statements
+	 * NULL value representatin in CREATE/ALTER TABLE statements
 	 *
 	 * @var	string
 	 */
@@ -167,7 +163,7 @@ abstract class CI_DB_forge {
 	public function __construct(&$db)
 	{
 		$this->db =& $db;
-		log_message('info', 'Database Forge Class Initialized');
+		log_message('debug', 'Database Forge Class Initialized');
 	}
 
 	// --------------------------------------------------------------------
@@ -184,7 +180,7 @@ abstract class CI_DB_forge {
 		{
 			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
 		}
-		elseif ( ! $this->db->query(sprintf($this->_create_database, $this->db->escape_identifiers($db_name), $this->db->char_set, $this->db->dbcollat)))
+		elseif ( ! $this->db->query(sprintf($this->_create_database, $db_name, $this->db->char_set, $this->db->dbcollat)))
 		{
 			return ($this->db->db_debug) ? $this->db->display_error('db_unable_to_drop') : FALSE;
 		}
@@ -207,11 +203,16 @@ abstract class CI_DB_forge {
 	 */
 	public function drop_database($db_name)
 	{
-		if ($this->_drop_database === FALSE)
+		if ($db_name === '')
+		{
+			show_error('A table name is required for that operation.');
+			return FALSE;
+		}
+		elseif ($this->_drop_database === FALSE)
 		{
 			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
 		}
-		elseif ( ! $this->db->query(sprintf($this->_drop_database, $this->db->escape_identifiers($db_name))))
+		elseif ( ! $this->db->query(sprintf($this->_drop_database, $db_name)))
 		{
 			return ($this->db->db_debug) ? $this->db->display_error('db_unable_to_drop') : FALSE;
 		}
@@ -237,14 +238,13 @@ abstract class CI_DB_forge {
 	 * @param	bool	$primary
 	 * @return	CI_DB_forge
 	 */
-	public function add_key($key, $primary = FALSE)
+	public function add_key($key = '', $primary = FALSE)
 	{
-		// DO NOT change this! This condition is only applicable
-		// for PRIMARY keys because you can only have one such,
-		// and therefore all fields you add to it will be included
-		// in the same, composite PRIMARY KEY.
-		//
-		// It's not the same for regular indexes.
+		if (empty($key))
+		{
+			show_error('Key information is required for that operation.');
+		}
+
 		if ($primary === TRUE && is_array($key))
 		{
 			foreach ($key as $one)
@@ -270,13 +270,47 @@ abstract class CI_DB_forge {
 	// --------------------------------------------------------------------
 
 	/**
+	 * Add Foreign Key
+	 *
+	 * Accepts a string or an array.  A string would be the foreign key SQL syntax.
+	 * An array will have the following elements:
+	 *  field (string) - name of the field for the foreign key
+	 *  foreign_table (string) - name of the table being referenced
+	 *  foreign_field (string) - name of the field being referenced in the foreign table
+	 *  delete (string) - the reference option for delete [optional]
+	 *  update (string) - the reference option for update [optional]
+	 * Only 1 Foreign Key can be added per method call
+	 *
+	 * @param	string|array	$key The foreign key being added
+	 * @return	CI_DB_forge
+	 */
+	public function add_foreign_key($key = '')
+	{
+		if (empty($key))
+		{
+			show_error('Key information is required for that operation.');
+		}
+
+		$this->foreign_keys[] = $key;
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Add Field
 	 *
 	 * @param	array	$field
 	 * @return	CI_DB_forge
 	 */
-	public function add_field($field)
+	public function add_field($field = '')
 	{
+		if (empty($field))
+		{
+			show_error('Field information is required.');
+		}
+
 		if (is_string($field))
 		{
 			if ($field === 'id')
@@ -316,10 +350,9 @@ abstract class CI_DB_forge {
 	 *
 	 * @param	string	$table		Table name
 	 * @param	bool	$if_not_exists	Whether to add IF NOT EXISTS condition
-	 * @param	array	$attributes	Associative array of table attributes
 	 * @return	bool
 	 */
-	public function create_table($table, $if_not_exists = FALSE, array $attributes = array())
+	public function create_table($table = '', $if_not_exists = FALSE)
 	{
 		if ($table === '')
 		{
@@ -335,7 +368,7 @@ abstract class CI_DB_forge {
 			show_error('Field information is required.');
 		}
 
-		$sql = $this->_create_table($table, $if_not_exists, $attributes);
+		$sql = $this->_create_table($table, $if_not_exists);
 
 		if (is_bool($sql))
 		{
@@ -348,10 +381,7 @@ abstract class CI_DB_forge {
 
 		if (($result = $this->db->query($sql)) !== FALSE)
 		{
-			if (isset($this->db->data_cache['table_names']))
-			{
-				$this->db->data_cache['table_names'][] = $table;
-			}
+			empty($this->db->data_cache['table_names']) OR $this->db->data_cache['table_names'][] = $table;
 
 			// Most databases don't support creating indexes from within the CREATE TABLE statement
 			if ( ! empty($this->keys))
@@ -374,10 +404,9 @@ abstract class CI_DB_forge {
 	 *
 	 * @param	string	$table		Table name
 	 * @param	bool	$if_not_exists	Whether to add 'IF NOT EXISTS' condition
-	 * @param	array	$attributes	Associative array of table attributes
 	 * @return	mixed
 	 */
-	protected function _create_table($table, $if_not_exists, $attributes)
+	protected function _create_table($table, $if_not_exists)
 	{
 		if ($if_not_exists === TRUE && $this->_create_table_if === FALSE)
 		{
@@ -385,8 +414,10 @@ abstract class CI_DB_forge {
 			{
 				return TRUE;
 			}
-
-			$if_not_exists = FALSE;
+			else
+			{
+				$if_not_exists = FALSE;
+			}
 		}
 
 		$sql = ($if_not_exists)
@@ -402,7 +433,8 @@ abstract class CI_DB_forge {
 		}
 
 		$columns = implode(',', $columns)
-				.$this->_process_primary_keys($table);
+				.$this->_process_primary_keys($table)
+				.$this->_process_foreign_keys();
 
 		// Are indexes created from within the CREATE TABLE statement? (e.g. in MySQL)
 		if ($this->_create_table_keys === TRUE)
@@ -411,35 +443,11 @@ abstract class CI_DB_forge {
 		}
 
 		// _create_table will usually have the following format: "%s %s (%s\n)"
-		$sql = sprintf($this->_create_table.'%s',
+		$sql = sprintf($this->_create_table.';',
 			$sql,
 			$this->db->escape_identifiers($table),
-			$columns,
-			$this->_create_table_attr($attributes)
+			$columns
 		);
-
-		return $sql;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * CREATE TABLE attributes
-	 *
-	 * @param	array	$attributes	Associative array of table attributes
-	 * @return	string
-	 */
-	protected function _create_table_attr($attributes)
-	{
-		$sql = '';
-
-		foreach (array_keys($attributes) as $key)
-		{
-			if (is_string($key))
-			{
-				$sql .= ' '.strtoupper($key).' '.$attributes[$key];
-			}
-		}
 
 		return $sql;
 	}
@@ -460,7 +468,12 @@ abstract class CI_DB_forge {
 			return ($this->db->db_debug) ? $this->db->display_error('db_table_name_required') : FALSE;
 		}
 
-		if (($query = $this->_drop_table($this->db->dbprefix.$table_name, $if_exists)) === TRUE)
+		$query = $this->_drop_table($this->db->dbprefix.$table_name, $if_exists);
+		if ($query === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+		}
+		elseif ($query === TRUE)
 		{
 			return TRUE;
 		}
@@ -489,7 +502,7 @@ abstract class CI_DB_forge {
 	 *
 	 * @param	string	$table		Table name
 	 * @param	bool	$if_exists	Whether to add an IF EXISTS condition
-	 * @return	mixed	(Returns a platform-specific DROP table string, or TRUE to indicate there's nothing to do)
+	 * @return	string
 	 */
 	protected function _drop_table($table, $if_exists)
 	{
@@ -562,10 +575,18 @@ abstract class CI_DB_forge {
 	 * @param	string	$_after	Column for AFTER clause (deprecated)
 	 * @return	bool
 	 */
-	public function add_column($table, $field, $_after = NULL)
+	public function add_column($table = '', $field = array(), $_after = NULL)
 	{
+		if ($table === '')
+		{
+			show_error('A table name is required for that operation.');
+		}
+
 		// Work-around for literal column definitions
-		is_array($field) OR $field = array($field);
+		if ( ! is_array($field))
+		{
+			$field = array($field);
+		}
 
 		foreach (array_keys($field) as $k)
 		{
@@ -605,8 +626,18 @@ abstract class CI_DB_forge {
 	 * @param	string	$column_name	Column name
 	 * @return	bool
 	 */
-	public function drop_column($table, $column_name)
+	public function drop_column($table = '', $column_name = '')
 	{
+		if ($table === '')
+		{
+			show_error('A table name is required for that operation.');
+		}
+
+		if ($column_name === '')
+		{
+			show_error('A column name is required for that operation.');
+		}
+
 		$sql = $this->_alter_table('DROP', $this->db->dbprefix.$table, $column_name);
 		if ($sql === FALSE)
 		{
@@ -625,10 +656,18 @@ abstract class CI_DB_forge {
 	 * @param	string	$field	Column definition
 	 * @return	bool
 	 */
-	public function modify_column($table, $field)
+	public function modify_column($table = '', $field = array())
 	{
+		if ($table === '')
+		{
+			show_error('A table name is required for that operation.');
+		}
+
 		// Work-around for literal column definitions
-		is_array($field) OR $field = array($field);
+		if ( ! is_array($field))
+		{
+			$field = array($field);
+		}
 
 		foreach (array_keys($field) as $k)
 		{
@@ -678,12 +717,8 @@ abstract class CI_DB_forge {
 			return $sql.'DROP COLUMN '.$this->db->escape_identifiers($field);
 		}
 
-		$sql .= ($alter_type === 'ADD')
-			? 'ADD '
-			: $alter_type.' COLUMN ';
-
 		$sqls = array();
-		for ($i = 0, $c = count($field); $i < $c; $i++)
+		for ($i = 0, $c = count($field), $sql .= $alter_type.' COLUMN '; $i < $c; $i++)
 		{
 			$sqls[] = $sql
 				.($field[$i]['_literal'] !== FALSE ? $field[$i]['_literal'] : $this->_process_column($field[$i]));
@@ -719,34 +754,24 @@ abstract class CI_DB_forge {
 				continue;
 			}
 
-			isset($attributes['TYPE']) && $this->_attr_type($attributes);
+			if (isset($attributes['TYPE']))
+			{
+				$this->_attr_type($attributes);
+				$this->_attr_unsigned($attributes, $field);
+			}
 
 			$field = array(
-				'name'			=> $key,
-				'new_name'		=> isset($attributes['NAME']) ? $attributes['NAME'] : NULL,
-				'type'			=> isset($attributes['TYPE']) ? $attributes['TYPE'] : NULL,
-				'length'		=> '',
-				'unsigned'		=> '',
-				'null'			=> NULL,
-				'unique'		=> '',
-				'default'		=> '',
-				'auto_increment'	=> '',
-				'_literal'		=> FALSE
+					'name'			=> $key,
+					'new_name'		=> isset($attributes['NAME']) ? $attributes['NAME'] : NULL,
+					'type'			=> isset($attributes['TYPE']) ? $attributes['TYPE'] : NULL,
+					'length'		=> '',
+					'unsigned'		=> '',
+					'null'			=> '',
+					'unique'		=> '',
+					'default'		=> '',
+					'auto_increment'	=> '',
+					'_literal'		=> FALSE
 			);
-
-			isset($attributes['TYPE']) && $this->_attr_unsigned($attributes, $field);
-
-			if ($create_table === FALSE)
-			{
-				if (isset($attributes['AFTER']))
-				{
-					$field['after'] = $attributes['AFTER'];
-				}
-				elseif (isset($attributes['FIRST']))
-				{
-					$field['first'] = (bool) $attributes['FIRST'];
-				}
-			}
 
 			$this->_attr_default($attributes, $field);
 
@@ -756,23 +781,14 @@ abstract class CI_DB_forge {
 				{
 					$field['null'] = empty($this->_null) ? '' : ' '.$this->_null;
 				}
-				else
+				elseif ($create_table === TRUE)
 				{
 					$field['null'] = ' NOT NULL';
 				}
 			}
-			elseif ($create_table === TRUE)
-			{
-				$field['null'] = ' NOT NULL';
-			}
 
 			$this->_attr_auto_increment($attributes, $field);
 			$this->_attr_unique($attributes, $field);
-
-			if (isset($attributes['COMMENT']))
-			{
-				$field['comment'] = $this->db->escape($attributes['COMMENT']);
-			}
 
 			if (isset($attributes['TYPE']) && ! empty($attributes['CONSTRAINT']))
 			{
@@ -783,8 +799,8 @@ abstract class CI_DB_forge {
 						$attributes['CONSTRAINT'] = $this->db->escape($attributes['CONSTRAINT']);
 					default:
 						$field['length'] = is_array($attributes['CONSTRAINT'])
-							? '('.implode(',', $attributes['CONSTRAINT']).')'
-							: '('.$attributes['CONSTRAINT'].')';
+								? "('".implode("','", $attributes['CONSTRAINT'])."')"
+								: '('.$attributes['CONSTRAINT'].')';
 						break;
 				}
 			}
@@ -826,7 +842,7 @@ abstract class CI_DB_forge {
 	 */
 	protected function _attr_type(&$attributes)
 	{
-		// Usually overridden by drivers
+		// Usually overriden by drivers
 	}
 
 	// --------------------------------------------------------------------
@@ -902,7 +918,7 @@ abstract class CI_DB_forge {
 				$field['default'] = empty($this->_null) ? '' : $this->_default.$this->_null;
 
 				// Override the NULL attribute if that's our default
-				$attributes['NULL'] = TRUE;
+				$attributes['NULL'] = NULL;
 				$field['null'] = empty($this->_null) ? '' : ' '.$this->_null;
 			}
 			else
@@ -978,13 +994,61 @@ abstract class CI_DB_forge {
 	// --------------------------------------------------------------------
 
 	/**
+	 * Process Adding of Foreign Keys
+	 * Called by _create_table()
+	 *
+	 * @return string SQL statement component
+	 */
+	protected function _process_foreign_keys()
+	{
+		$sql = '';
+
+		// If we have any foreign keys to process...
+		if (count($this->foreign_keys) > 0)
+		{
+			foreach ($this->foreign_keys as $foreign_key)
+			{
+				//  If this is an array, construct the statement
+				if (is_array($foreign_key))
+				{
+					// Initialize update and delete actions with default values
+					$array_init = array('delete' => 'NO ACTION', 'update' => 'NO ACTION');
+
+					// Add the default values if needed
+					$foreign_key = array_merge($array_init, $foreign_key);
+
+					// Extract the array elements into variables for simplicity
+					extract($foreign_key);
+
+					// Construct the SQL to add the foreign constraint
+					$sql .= ", \n\tCONSTRAINT FOREIGN KEY "
+						.$this->db->escape_identifiers('fk_'.$foreign_table.'_'.$foreign_field)
+						.' ('.$this->db->escape_identifiers($field).') '
+						.' REFERENCES '.$this->db->escape_identifiers($foreign_table
+						.'('.$this->db->escape_identifiers($foreign_field).')')
+						.' ON DELETE '.strtoupper($delete).' ON UPDATE '.strtoupper($update).' ';
+
+				} else {
+					// Otherwise add the string statement as-is
+					$sql .= ', '.$foreign_key.' ';
+				}
+			}
+		}
+
+		return $sql;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Process indexes
 	 *
-	 * @param	string	$table	Table name
-	 * @return	string[] list of SQL statements
+	 * @param	string	$table
+	 * @return	string
 	 */
 	protected function _process_indexes($table)
 	{
+		$table = $this->db->escape_identifiers($table);
 		$sqls = array();
 
 		for ($i = 0, $c = count($this->keys); $i < $c; $i++)
@@ -1008,7 +1072,7 @@ abstract class CI_DB_forge {
 
 			is_array($this->keys[$i]) OR $this->keys[$i] = array($this->keys[$i]);
 
-			$sqls[] = 'CREATE INDEX '.$this->db->escape_identifiers($table.'_'.implode('_', $this->keys[$i]))
+			$sqls[] = 'CREATE INDEX '.$this->db->escape_identifiers(implode('_', $this->keys[$i]))
 				.' ON '.$this->db->escape_identifiers($table)
 				.' ('.implode(', ', $this->db->escape_identifiers($this->keys[$i])).');';
 		}
@@ -1031,3 +1095,6 @@ abstract class CI_DB_forge {
 	}
 
 }
+
+/* End of file DB_forge.php */
+/* Location: ./system/database/DB_forge.php */

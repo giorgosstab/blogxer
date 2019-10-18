@@ -7,65 +7,61 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <section class="blog-wrap-layout15 container-xl">
 	<div class="container">
 		<div class="row gutters-6">
-			<div class="col-xl-6 col-lg-12">
-				<div class="blog-box-layout13">
-					<div class="item-img">
-						<img src="<?php echo path() ?>img/blog/blog110.jpg" alt="blog">
-						<div class="item-content">
-							<ul class="entry-meta meta-color-light">
-								<li><i class="fas fa-tag"></i>Medical</li>
-								<li><i class="fas fa-calendar-alt"></i>October 19, 2019</li>
-								<li><i class="fas fa-user"></i>BY <a href="#">Mark Willy</a></li>
-							</ul>
-							<h2 class="item-title"><a href="single-blog.html">How to run without destroying
-									strong
-									your knees</a></h2>
+			<?php foreach($data['posts_ontop'] as $post) : ?>
+				<?php if($post === reset($data['posts_ontop'])) { ?>
+					<div class="col-xl-6 col-lg-12">
+						<div class="blog-box-layout13">
+							<div class="item-img">
+								<img src="<?php echo path().$post['image'] ?>" alt="blog">
+								<div class="item-content">
+									<ul class="entry-meta meta-color-light">
+										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+										<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
+										<li><i class="fas fa-user"></i>BY <a href="#">Mark Willy</a></li>
+									</ul>
+									<h2 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo character_limiter($post['title'],65); ?></a></h2>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				<?php } ?>
+			<?php endforeach; ?>
 			<div class="col-xl-3 col-lg-6">
-				<div class="blog-box-layout13">
-					<div class="item-img">
-						<img src="<?php echo path() ?>img/blog/blog111.jpg" alt="blog">
-						<div class="item-content">
-							<ul class="entry-meta meta-color-light">
-								<li><i class="fas fa-tag"></i>Medical</li>
-								<li><i class="fas fa-calendar-alt"></i>October 19, 2019</li>
-							</ul>
-							<h3 class="item-title"><a href="single-blog.html">Get The Look Of Carrier Bradsha
-									aea In 2019</a></h3>
-						</div>
-					</div>
-				</div>
-				<div class="blog-box-layout13">
-					<div class="item-img">
-						<img src="<?php echo path() ?>img/blog/blog112.jpg" alt="blog">
-						<div class="item-content">
-							<ul class="entry-meta meta-color-light">
-								<li><i class="fas fa-tag"></i>Medical</li>
-								<li><i class="fas fa-calendar-alt"></i>October 19, 2019</li>
-							</ul>
-							<h3 class="item-title"><a href="single-blog.html">How without den strong your knees</a></h3>
-						</div>
-					</div>
-				</div>
+				<?php foreach($data['posts_ontop'] as $post) : ?>
+					<?php if($post !== reset($data['posts_ontop']) && $post !== end($data['posts_ontop'])) { ?>
+						<div class="blog-box-layout13">
+                            <div class="item-img">
+                                <img src="<?php echo path().$post['image'] ?>" alt="blog">
+                                <div class="item-content">
+                                    <ul class="entry-meta meta-color-light">
+                                        <li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+                                        <li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
+                                    </ul>
+                                    <h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo word_limiter($post['title'],7); ?></a></h3>
+                                </div>
+                            </div>
+                        </div>
+					<?php } ?>
+				<?php endforeach; ?>
 			</div>
-			<div class="col-xl-3 col-lg-6">
-				<div class="blog-box-layout13">
-					<div class="item-img">
-						<img src="<?php echo path() ?>img/blog/blog113.jpg" alt="blog">
-						<div class="item-content">
-							<ul class="entry-meta meta-color-light">
-								<li><i class="fas fa-tag"></i>Medical</li>
-								<li><i class="fas fa-calendar-alt"></i>October 19, 2019</li>
-							</ul>
-							<h3 class="item-title"><a href="single-blog.html">Fit Body Design Meets Californian
-									Styling</a></h3>
+			<?php foreach($data['posts_ontop'] as $post) : ?>
+				<?php if($post === end($data['posts_ontop'])) { ?>
+					<div class="col-xl-3 col-lg-6">
+						<div class="blog-box-layout13">
+							<div class="item-img">
+								<img src="<?php echo path() ?>img/blog/blog113.jpg" alt="blog">
+								<div class="item-content">
+									<ul class="entry-meta meta-color-light">
+										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+										<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
+									</ul>
+									<h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo word_limiter($post['title'],7); ?></a></h3>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				<?php } ?>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
@@ -76,51 +72,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="row gutters-50">
 			<div class="col-xl-9 col-lg-8">
 				<div class="row gutters-40">
-					<div class="col-md-4 col-12">
-						<div class="blog-box-layout2">
-							<div class="item-img">
-								<a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog114.jpg" alt="blog"></a>
-							</div>
-							<div class="item-content">
-								<ul class="entry-meta meta-color-dark">
-									<li><i class="fas fa-tag"></i>Fitness</li>
-									<li><i class="fas fa-calendar-alt"></i>October 19, 2019</li>
-								</ul>
-								<h3 class="item-title"><a href="single-blog.html">How an Island Formsn River
-										And Stones</a></h3>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-12">
-						<div class="blog-box-layout2">
-							<div class="item-img">
-								<a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog115.jpg" alt="blog"></a>
-							</div>
-							<div class="item-content">
-								<ul class="entry-meta meta-color-dark">
-									<li><i class="fas fa-tag"></i>Operation</li>
-									<li><i class="fas fa-calendar-alt"></i>October 19, 2019</li>
-								</ul>
-								<h3 class="item-title"><a href="single-blog.html">How an Island Formsn River
-										And Stones</a></h3>
+					<?php foreach($data['posts_hot'] as $post) : ?>
+						<div class="col-md-4 col-12">
+							<div class="blog-box-layout2">
+								<div class="item-img">
+									<a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><img src="<?php echo path().$post['image'] ?>" alt="blog"></a>
+								</div>
+								<div class="item-content">
+									<ul class="entry-meta meta-color-dark">
+										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+										<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
+									</ul>
+									<h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo word_limiter($post['title'],10); ?></a></h3>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4 col-12">
-						<div class="blog-box-layout2">
-							<div class="item-img">
-								<a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog116.jpg" alt="blog"></a>
-							</div>
-							<div class="item-content">
-								<ul class="entry-meta meta-color-dark">
-									<li><i class="fas fa-tag"></i>Lab</li>
-									<li><i class="fas fa-calendar-alt"></i>October 19, 2019</li>
-								</ul>
-								<h3 class="item-title"><a href="single-blog.html">How an Island Formsn River
-										And Stones</a></h3>
-							</div>
-						</div>
-					</div>
+					<?php endforeach; ?>
 				</div>
 				<div class="blog-wrap-layout17">
 					<div class="row gutters-40">
@@ -187,35 +154,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 				</div>
 				<div class="row gutters-40">
-					<!-- <div class="col-md-6 col-12">
-						<div class="blog-box-layout3">
-							<div class="item-img">
-								<img src="<?php echo path() ?>img/blog/blog119.jpg" alt="blog">
-								<a class="play-btn popup-youtube" href="http://www.youtube.com/watch?v=1iIZeIy7TqM">
-									<i class="flaticon-play-arrow"></i>
-								</a>
-							</div>
-							<div class="item-content">
-								<ul class="entry-meta meta-color-dark">
-									<li><i class="fas fa-tag"></i>Health</li>
-									<li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-									<li><i class="far fa-clock"></i>5 Mins Read</li>
-									<li><i class="fas fa-user"></i>BY <a href="#">Mark Willy</a></li>
-								</ul>
-								<h3 class="item-title"><a href="single-blog.html">Modern medicine technology</a></h3>
-								<p>Aimply dummy text of the printing and type are setting industry. Lorem Ipsum
-									has
-									been the industry's stan dard dummy text ever since the</p>
-								<div class="action-area">
-									<a href="single-blog.html" class="item-btn">READ MORE<i class="fas fa-arrow-right"></i></a>
-									<ul class="response-area">
-										<li><a href="#"><i class="far fa-heart"></i>12</a></li>
-										<li><a href="#"><i class="far fa-comment"></i>02</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div> -->
 					<?php foreach($data['posts'] as $post) : ?>
 						<div class="col-md-6 col-12">
 							<div class="blog-box-layout3">
@@ -224,12 +162,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<div class="item-content">
 									<ul class="entry-meta meta-color-dark">
-										<li><i class="fas fa-tag"></i>Baby Care</li>
+										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
 										<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
 										<li><i class="far fa-clock"></i>5 Mins Read</li>
 										<li><i class="fas fa-user"></i>BY <a href="#">Mark Willy</a></li>
 									</ul>
-									<h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo $post['title']; ?></a></h3>
+									<h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo character_limiter($post['title'],40); ?></a></h3>
 									<p><?php echo character_limiter($post['excerpt'],200); ?></p>
 									<div class="action-area">
 										<a href="<?php echo site_url('/blog/'.$post['slug']); ?>" class="item-btn">READ MORE<i class="fas fa-arrow-right"></i></a>
@@ -242,13 +180,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 						</div>
 					<?php endforeach; ?>
-				</div>
-				<div class="pagination-layout1">
-					<ul>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-					</ul>
 				</div>
 			</div>
 			<div class="col-xl-3 col-lg-4 sidebar-widget-area sidebar-break-md">
@@ -345,42 +276,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					<div class="widget-categories">
 						<ul>
-							<li>
-								<a href="#">Beauty
-									<span>(35)</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">Fashion
-									<span>(10)</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">Food
-									<span>(25)</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">Life Style
-									<span>(15)</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">Travel
-									<span>(22)</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">Video
-									<span>(18)</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">Technology
-									<span>(22)</span>
-								</a>
-							</li>
-						</ul>
+                            <?php foreach($data['categories'] as $category) : ?>
+                                <li>
+                                    <a href="#"><?php echo $category['title']; ?>
+                                        <span>(35)</span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
 					</div>
 				</div>
 				<div class="widget">

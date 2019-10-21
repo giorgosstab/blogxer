@@ -11,3 +11,4 @@ $route['blog/(:num)'] = 'blog/$1';
 $route['blog'] = 'blog';
 
 $route['about'] = 'about';
+$route['contact'] = 'contact';

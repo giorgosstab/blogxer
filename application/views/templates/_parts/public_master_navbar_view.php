@@ -18,7 +18,7 @@
 							<li class=""><a href="<?php echo site_url('/') ?>">HOME</a></li>
 							<li><a href="<?php echo site_url('/about') ?>">ABOUT</a></li>
 							<li><a href="<?php echo site_url('/blog') ?>">BLOG</a></li>
-							<li><a href="contact.html">CONTACT</a></li>
+							<li><a href="<?php echo site_url('/contact') ?>">CONTACT</a></li>
 						</ul>
 					</nav>
 				</div>

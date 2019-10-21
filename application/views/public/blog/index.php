@@ -9,12 +9,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumbs-area">
-                    <h1>Category Blogs</h1>
+                    <h1>Blog</h1>
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="<?php echo site_url(); ?>">Home</a>
                         </li>
-                        <li>Categories</li>
+                        <li>Blog</li>
                     </ul>
                 </div>
             </div>

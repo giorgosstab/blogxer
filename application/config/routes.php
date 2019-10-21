@@ -6,4 +6,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['blog/(:any)'] = 'blog/show/$1';
+
+$route['blog/(:num)'] = 'blog/$1';
 $route['blog'] = 'blog';

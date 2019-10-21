@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="item-content">
                             <ul class="entry-meta meta-color-dark">
-                                <li><i class="fas fa-tag"></i><?php echo $post['tag_title']; ?></li>
+                                <li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]->title)) { echo $post['tags'][0]->title; } else { echo '#untagged';} ?></li>
                                 <li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
                                 <li><i class="far fa-clock"></i>5 Mins Read</li>
                             </ul>
@@ -59,8 +59,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </ul>
                 </div>
                 
-                <div class="pagination">
-                    <?php echo $this->pagination->create_links(); ?>
+                <div class="pagination-layout1">
+                    <ul>
+                        <?php echo $this->post_model->all_pages; ?>
+                    </ul>
                 </div>
                 
             </div>

@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="banner-content">
             <div class="container">
                 <ul class="entry-meta meta-color-light2">
-                    <li><i class="fas fa-tag"></i>Travel</li>
+                    <li><i class="fas fa-tag"></i><?php if(!empty($data['post']['tags'][0]->title)) { echo $data['post']['tags'][0]->title; } else { echo '#untagged';} ?></li>
                     <li><i class="fas fa-calendar-alt"></i><?php echo $data['post']['created_at']; ?></li>
                     <li><i class="fas fa-user"></i>BY <a href="#">Mark Willy</a></li>
                     <li><i class="far fa-clock"></i>5 Mins Read</li>
@@ -42,9 +42,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="blog-entry-meta">
                         <ul>
                             <li class="item-tag"><i class="fas fa-bookmark"></i>
-                                <a href="#">explore,</a>
-                                <a href="#">travel,</a>
-                                <a href="#">vacation,</a>
+                                <?php foreach($data['post']['tags'] as $tag) : ?>
+                                    <a href="#">explore,</a>
+                                <?php endforeach; ?>
                             </li>
                             <li class="item-social">
                                 <a href="#"><i class="fab fa-facebook-f"></i></a>

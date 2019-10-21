@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<img src="<?php echo path().$post['image'] ?>" alt="blog">
 								<div class="item-content">
 									<ul class="entry-meta meta-color-light">
-										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]->title)) { echo $post['tags'][0]->title; } else { echo '#untagged';} ?></li>
 										<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
 										<li><i class="fas fa-user"></i>BY <a href="#">Mark Willy</a></li>
 									</ul>
@@ -34,7 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <img src="<?php echo path().$post['image'] ?>" alt="blog">
                                 <div class="item-content">
                                     <ul class="entry-meta meta-color-light">
-                                        <li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+                                        <li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]->title)) { echo $post['tags'][0]->title; } else { echo '#untagged';} ?></li>
                                         <li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
                                     </ul>
                                     <h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo word_limiter($post['title'],7); ?></a></h3>
@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<img src="<?php echo path() ?>img/blog/blog113.jpg" alt="blog">
 								<div class="item-content">
 									<ul class="entry-meta meta-color-light">
-										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]->title)) { echo $post['tags'][0]->title; } else { echo '#untagged';} ?></li>
 										<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
 									</ul>
 									<h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo word_limiter($post['title'],7); ?></a></h3>
@@ -80,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<div class="item-content">
 									<ul class="entry-meta meta-color-dark">
-										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]->title)) { echo $post['tags'][0]->title; } else { echo '#untagged';} ?></li>
 										<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
 									</ul>
 									<h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo word_limiter($post['title'],10); ?></a></h3>
@@ -94,61 +94,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="col-xl-7 col-lg-12">
 							<div class="blog-box-layout1 text-left">
 								<div class="item-img">
-									<a href="single-blog.html"><img src="<?php echo path() ?>img/blog/blog118.jpg" alt="blog"></a>
+									<a href="<?php echo site_url('/blog/'.$data['latest'][0]['slug']); ?>"><img src="<?php echo path().$data['latest'][0]['image'] ?>" alt="blog"></a>
 								</div>
 								<div class="item-content">
 									<ul class="entry-meta meta-color-dark">
-										<li><i class="fas fa-tag"></i>Fashion</li>
-										<li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
+										<li><i class="fas fa-tag"></i><?php if(!empty($data['latest'][0]['tags'][0]->title)) { echo $data['latest'][0]['tags'][0]->title; } else { echo '#untagged';} ?></li>
+										<li><i class="fas fa-calendar-alt"></i></i><?php echo $data['latest'][0]['created_at']; ?></li>
 										<li><i class="far fa-clock"></i>5 Mins Read</li>
 										<li><i class="fas fa-user"></i>BY <a href="#">Mark Willy</a></li>
 									</ul>
-									<h2 class="item-title-lg"> <a href="single-blog.html">5 design things to
-											look out for in June 2019</a></h2>
-									<p>Aimply dummy text of the printing and typesetting industry. Lorem Ipsum
-										has been the industry's standard
-										dummy text ever since.</p>
+									<h2 class="item-title-lg"> <a href="<?php echo site_url('/blog/'.$data['latest'][0]['slug']); ?>"><?php echo $data['latest'][0]['title'] ?></a></h2>
+									<p><?php echo word_limiter($data['latest'][0]['excerpt'],40); ?></p>
 								</div>
 							</div>
 						</div>
 						<div class="col-xl-5 col-lg-12">
 							<div class="blog-box-layout14">
-								<div class="item-content">
-									<ul class="entry-meta meta-color-dark">
-										<li><i class="fas fa-tag"></i>Health</li>
-										<li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-										<li><i class="far fa-clock"></i>5 Mins Read</li>
-									</ul>
-									<h3 class="item-title"><a href="single-blog.html">Medical design thing look
-											are out for June 2019</a></h3>
-								</div>
-								<div class="item-content">
-									<ul class="entry-meta meta-color-dark">
-										<li><i class="fas fa-tag"></i>Health</li>
-										<li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-										<li><i class="far fa-clock"></i>5 Mins Read</li>
-									</ul>
-									<h3 class="item-title"><a href="single-blog.html">Medical design thing look
-											are out for June 2019</a></h3>
-								</div>
-								<div class="item-content">
-									<ul class="entry-meta meta-color-dark">
-										<li><i class="fas fa-tag"></i>Health</li>
-										<li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-										<li><i class="far fa-clock"></i>5 Mins Read</li>
-									</ul>
-									<h3 class="item-title"><a href="single-blog.html">Medical design thing look
-											are out for June 2019</a></h3>
-								</div>
-								<div class="item-content">
-									<ul class="entry-meta meta-color-dark">
-										<li><i class="fas fa-tag"></i>Health</li>
-										<li><i class="fas fa-calendar-alt"></i>Jan 19, 2019</li>
-										<li><i class="far fa-clock"></i>5 Mins Read</li>
-									</ul>
-									<h3 class="item-title"><a href="single-blog.html">Medical design thing look
-											are out for June 2019</a></h3>
-								</div>
+								<?php foreach($data['posts'] as $post) : ?>
+									<div class="item-content">
+										<ul class="entry-meta meta-color-dark">
+											<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]->title)) { echo $post['tags'][0]->title; } else { echo '#untagged';} ?></li>
+											<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
+											<li><i class="far fa-clock"></i>5 Mins Read</li>
+										</ul>
+										<h3 class="item-title"><a href="<?php echo site_url('/blog/'.$post['slug']); ?>"><?php echo character_limiter($post['title'],40); ?></a></h3>
+									</div>
+								<?php endforeach; ?>
 							</div>
 						</div>
 					</div>
@@ -162,7 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<div class="item-content">
 									<ul class="entry-meta meta-color-dark">
-										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]['title'])) { echo $post['tags'][0]['title']; } else { echo '#untagged';} ?></li>
+										<li><i class="fas fa-tag"></i><?php if(!empty($post['tags'][0]->title)) { echo $post['tags'][0]->title; } else { echo '#untagged';} ?></li>
 										<li><i class="fas fa-calendar-alt"></i><?php echo $post['created_at']; ?></li>
 										<li><i class="far fa-clock"></i>5 Mins Read</li>
 										<li><i class="fas fa-user"></i>BY <a href="#">Mark Willy</a></li>

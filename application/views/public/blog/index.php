@@ -51,13 +51,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <div class="pagination-layout1">
+                <!-- <div class="pagination-layout1">
                     <ul>
                         <li class="active"><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                     </ul>
-                </div>
+                </div> -->
                 
                 <div class="pagination-layout1">
                     <ul>

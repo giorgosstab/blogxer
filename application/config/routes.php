@@ -9,3 +9,5 @@ $route['blog/(:any)'] = 'blog/show/$1';
 
 $route['blog/(:num)'] = 'blog/$1';
 $route['blog'] = 'blog';
+
+$route['about'] = 'about';

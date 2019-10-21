@@ -15,7 +15,7 @@ class Blog extends Public_Controller {
      */
 
 	public function index() {
-		$data['posts'] = $this->post_model->get_all_posts_with_tag();
+		$data['posts'] = $this->post_model->get_all_posts_with_paginate();
 		$data['categories'] = $this->category_model->get_categories();
 		$this->render('public/blog/index',$data);
 	}
@@ -30,6 +30,7 @@ class Blog extends Public_Controller {
 
     public function show($slug = NULL) {
 		$data['post'] = $this->post_model->get_all_posts_with_tag($slug);
+		
 
 		if(empty($data['post'])) {
 			show_404();

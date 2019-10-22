@@ -20,6 +20,9 @@ class Migration_create_categories_table extends CI_Migration {
 		$this->dbforge->add_foreign_key(array('field' => 'parent_id','foreign_table' => 'categories','foreign_field' => 'id','delete' => 'SET NULL','update' => 'CASCADE'));
 		$this->dbforge->timestamps();
 		$this->dbforge->create_table($this->_table_name, TRUE);
+
+		$this->load->model('category_model');
+        $this->category_model->insert_dummy();
 	}
 
 	public function down()

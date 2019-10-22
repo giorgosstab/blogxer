@@ -2,14 +2,14 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_post_tag_table extends CI_Migration {
+class Migration_create_post_tags_table extends CI_Migration {
 
 	/**
 	 * Name of the table to be used in this migration!
 	 *
 	 * @var string
 	 */
-	protected $_table_name = "post_tag";
+	protected $_table_name = "post_tags";
 
 	public function up()
 	{
@@ -20,6 +20,9 @@ class Migration_create_post_tag_table extends CI_Migration {
 		$this->dbforge->add_foreign_key(array('field' => 'tag_id','foreign_table' => 'tags','foreign_field' => 'id','delete' => 'SET NULL','update' => 'CASCADE'));
 		$this->dbforge->timestamps();
 		$this->dbforge->create_table($this->_table_name, TRUE);
+
+		$this->load->model('post_tags_model');
+        $this->post_tags_model->insert_dummy();
 	}
 
 	public function down()

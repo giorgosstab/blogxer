@@ -18,4 +18,21 @@ class Category_model extends MY_Model
         $query = $this->db->get_where('categories',array('parent_id' => NULL));
         return $query->result_array();
     }
+
+    public function insert_dummy()
+    {
+        $insert_data = array(
+            array(
+                'parent_id' => NULL,
+                'title' => 'Web Development',
+                'slug' => 'web-development'
+            ),
+            array(
+                'parent_id' => NULL,
+                'title' => 'Front End Development',
+                'slug' => 'frontend-development'
+            )
+        );
+        $this->db->insert_batch($this->table, $insert_data);
+    }
 }

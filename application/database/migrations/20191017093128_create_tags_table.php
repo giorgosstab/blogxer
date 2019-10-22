@@ -18,6 +18,9 @@ class Migration_create_tags_table extends CI_Migration {
 		$this->dbforge->add_field(array('slug' => array('type' => 'VARCHAR','constraint' => '255','unique' => TRUE)));
 		$this->dbforge->timestamps();
 		$this->dbforge->create_table($this->_table_name, TRUE);
+
+		$this->load->model('tag_model');
+        $this->tag_model->insert_dummy();
 	}
 
 	public function down()

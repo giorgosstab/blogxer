@@ -26,6 +26,9 @@ class Migration_create_posts_table extends CI_Migration {
 		$this->dbforge->add_foreign_key(array('field' => 'category_id','foreign_table' => 'categories','foreign_field' => 'id','delete' => 'SET NULL','update' => 'CASCADE'));
 		$this->dbforge->timestamps();
 		$this->dbforge->create_table($this->_table_name, TRUE);
+
+		$this->load->model('post_model');
+        $this->post_model->insert_dummy();
 	}
 
 	public function down()

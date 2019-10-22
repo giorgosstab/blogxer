@@ -21,7 +21,7 @@ class Migration_create_posts_table extends CI_Migration {
 		$this->dbforge->add_field(array('body' => array('type' => 'LONGTEXT','null' => NULL)));
 		$this->dbforge->add_field(array('on_top' => array('type' => 'TINYINT','default' => 0)));
 		$this->dbforge->add_field(array('hot' => array('type' => 'TINYINT','default' => 0)));
-		$this->dbforge->add_field(array('IMAGE' => array('type' => 'VARCHAR','constraint' => '255','null' => NULL)));
+		$this->dbforge->add_field(array('image' => array('type' => 'VARCHAR','constraint' => '255','null' => NULL)));
 		// $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE SET NULL');
 		$this->dbforge->add_foreign_key(array('field' => 'category_id','foreign_table' => 'categories','foreign_field' => 'id','delete' => 'SET NULL','update' => 'CASCADE'));
 		$this->dbforge->timestamps();

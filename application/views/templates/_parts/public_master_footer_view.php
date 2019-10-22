@@ -4,7 +4,7 @@
                 <div class="row d-flex align-items-center">
                     <div class="col-lg-4">
                         <div class="footer-box-layout1">
-                            <div class="copyright">© 2019 blogxer. All Rights Reserved.</div>
+                            <div class="copyright">&copy; <?php echo copyrights_helper("2019"); ?> <a href="https://gtsaxrelias.tk">George Tsachrelias</a>. All Rights Reserved.</div>
                         </div>
                     </div>
                     <div class="col-lg-4">

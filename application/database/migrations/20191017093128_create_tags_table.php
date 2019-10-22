@@ -14,19 +14,8 @@ class Migration_create_tags_table extends CI_Migration {
 	public function up()
 	{
 		$this->dbforge->add_field('id');
-		$this->dbforge->add_field(array(
-				'title' => array(
-					'type' => 'VARCHAR',
-					'constraint' => '255',
-					'unique' => TRUE,
-				),
-				'slug' => array(
-					'type' => 'VARCHAR',
-					'constraint' => '255',
-					'unique' => TRUE,
-				),
-			)
-		);
+		$this->dbforge->add_field(array('title' => array('type' => 'VARCHAR','constraint' => '255','unique' => TRUE)));
+		$this->dbforge->add_field(array('slug' => array('type' => 'VARCHAR','constraint' => '255','unique' => TRUE)));
 		$this->dbforge->timestamps();
 		$this->dbforge->create_table($this->_table_name, TRUE);
 	}

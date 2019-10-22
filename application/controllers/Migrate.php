@@ -558,8 +558,7 @@ class Migrate extends CI_Controller
 		else
 		{
 			$file_content .= '		$this->dbforge->add_field(\'id\');'  .  PHP_EOL;
-			$file_content .= '		$this->dbforge->add_field("`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");'  .  PHP_EOL;
-			$file_content .= '		$this->dbforge->add_field("`updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");'  .  PHP_EOL;
+			$file_content .= '		$this->dbforge->timestamps();'  .  PHP_EOL;
 			$file_content .= '		$this->dbforge->create_table($'.'this->_table_name, TRUE);'  .  PHP_EOL;
 		}
 

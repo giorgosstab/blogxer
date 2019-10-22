@@ -13,11 +13,8 @@ class Migration_create_tags_table extends CI_Migration {
 
 	public function up()
 	{
+		$this->dbforge->add_field('id');
 		$this->dbforge->add_field(array(
-				'id' => array(
-					'type' => 'INTEGER',
-					'auto_increment' => TRUE,
-				),
 				'title' => array(
 					'type' => 'VARCHAR',
 					'constraint' => '255',
@@ -31,7 +28,6 @@ class Migration_create_tags_table extends CI_Migration {
 			)
 		);
 		$this->dbforge->timestamps();
-		$this->dbforge->add_key('id', TRUE);
 		$this->dbforge->create_table($this->_table_name, TRUE);
 	}
 

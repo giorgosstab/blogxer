@@ -318,7 +318,6 @@ abstract class CI_DB_forge {
 				$this->add_field(array(
 					'id' => array(
 						'type' => 'INT',
-						'constraint' => 9,
 						'auto_increment' => TRUE
 					)
 				));

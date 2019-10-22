@@ -13,11 +13,8 @@ class Migration_create_posts_table extends CI_Migration {
 
 	public function up()
 	{
+		$this->dbforge->add_field('id');
 		$this->dbforge->add_field(array(
-				'id' => array(
-					'type' => 'INTEGER',
-					'auto_increment' => TRUE,
-				),
 				'category_id' => array(
 					'type' => 'INTEGER',
 					'unsigned' => TRUE,
@@ -54,9 +51,6 @@ class Migration_create_posts_table extends CI_Migration {
 				),
 			)
 		);
-		$this->dbforge->timestamps();
-
-		$this->dbforge->add_key('id', TRUE);
 		// $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE SET NULL');
 		$this->dbforge->add_foreign_key(array(
 				'field' => 'category_id',
@@ -66,6 +60,7 @@ class Migration_create_posts_table extends CI_Migration {
 				'update' => 'CASCADE',
 			)
 		);
+		$this->dbforge->timestamps();
 		$this->dbforge->create_table($this->_table_name, TRUE);
 	}
 

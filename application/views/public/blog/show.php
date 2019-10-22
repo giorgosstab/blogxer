@@ -19,11 +19,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </ul>
                 <h2 class="item-title"><?php echo $data['post']['title']; ?></h2>
                 <ul class="item-social">
-                    <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i>SHARE</a></li>
-                    <li><a href="#" class="twitter"><i class="fab fa-twitter"></i>SHARE</a></li>
-                    <li><a href="#" class="g-plus"><i class="fab fa-google-plus-g"></i>SHARE</a></li>
-                    <li><a href="#" class="pinterst"><i class="fab fa-pinterest"></i>PIN IT</a></li>
-                    <li><a href="#" class="load-more"><i class="fas fa-plus"></i>MORE</a></li>
+                    <li><a href="#" onclick="window.open('//www.facebook.com/sharer/sharer.php?u=<?php echo site_url('/blog/'.$data['post']['slug']); ?>','newwindow','width=600,height=400');return false;" class="facebook"><i class="fab fa-facebook-f"></i>SHARE</a></li>
+                    <li><a href="#" onclick="window.open('//twitter.com/home?status=<?php echo site_url('/blog/'.$data['post']['slug']); ?>','newwindow','width=600,height=400');return false;" class="twitter"><i class="fab fa-twitter"></i>SHARE</a></li>
+                    <li><a href="#" onclick="window.open('//plus.google.com/share?url=<?php echo site_url('/blog/'.$data['post']['slug']); ?>','newwindow','width=600,height=400');return false;" class="g-plus"><i class="fab fa-google-plus-g"></i>SHARE</a></li>
+                    <li><a href="#" onclick="window.open('//pinterest.com/pin/create/button/?url=<?php echo site_url('/blog/'.$data['post']['slug']); ?>','newwindow','width=600,height=400');return false;" class="pinterst"><i class="fab fa-pinterest"></i>PIN IT</a></li>
+                    <li><a href="mailto:?subject=<?php echo $data['post']['title']; ?>&body=Read complete article in here <?php echo site_url('/blog/'.$data['post']['slug']); ?>" class="load-more"><i class="fas fa-envelope-open-text"></i>E-MAIL</a></li>
                 </ul>
                 <ul class="response-area">
                     <li><a href="#"><i class="far fa-comment"></i>02</a></li>
@@ -47,11 +47,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php endforeach; ?>
                             </li>
                             <li class="item-social">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                                <a href="#"><i class="fab fa-pinterest"></i></a>
+                                <?php foreach($data['social_media_bottom'] as $social) : ?>
+                                    <a href="<?php echo $social['url'] ?>"><i class="<?php echo $social['title'] ?>"></i></a>
+                                <?php endforeach; ?>
                             </li>
                             <li class="item-respons"><i class="fas fa-heart"></i>1,230</li>
                         </ul>
@@ -258,12 +256,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="widget-follow-us-2">
                         <ul>
-                            <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>FOLLOWE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>FOLLOW ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>FOLLOW ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>FOLLOW ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>SUBSCRIBE</a></li>
+                            <?php foreach($data['social_media'] as $social) : ?>
+                                <?php if($social['title'] === 'fab fa-facebook-f'){ ?>
+								    <li class="single-item"><a href="<?php echo $social['url'] ?>" target="_blank"><i class="<?php echo $social['title'] ?>"></i>LIKE ME ON</a></li>
+                                <?php } else if($social['title'] === 'fab fa-youtube') { ?>
+                                    <li class="single-item"><a href="<?php echo $social['url'] ?>" target="_blank"><i class="<?php echo $social['title'] ?>"></i>SUBSCRIBE</a></li>
+                                <?php } else { ?>
+                                    <li class="single-item"><a href="<?php echo $social['url'] ?>" target="_blank"><i class="<?php echo $social['title'] ?>"></i>FOLLOWE ME</a></li>
+                                <?php } ?>
+							<?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
@@ -289,41 +290,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="widget-categories">
                         <ul>
-                            <li>
-                                <a href="#">Beauty
-                                    <span>(35)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Fashion
-                                    <span>(10)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Food
-                                    <span>(25)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Life Style
-                                    <span>(15)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Travel
-                                    <span>(22)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Video
-                                    <span>(18)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Technology
-                                    <span>(22)</span>
-                                </a>
-                            </li>
+                            <?php foreach($data['categories'] as $category) : ?>
+                                <li>
+                                    <a href="#"><?php echo $category['title']; ?>
+                                        <span>(35)</span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>

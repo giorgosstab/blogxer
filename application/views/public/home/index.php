@@ -160,16 +160,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					<div class="widget-follow-us">
 						<ul>
-							<li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-github-alt"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-kickstarter-k"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-behance"></i></a></li>
-							<li class="single-item"><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+							<?php foreach($data['social_media'] as $social) : ?>
+								<li class="single-item"><a href="<?php echo $social['url'] ?>" target="_blank"><i class="<?php echo $social['title'] ?>"></i></a></li>
+							<?php endforeach; ?>
 						</ul>
 					</div>
 				</div>

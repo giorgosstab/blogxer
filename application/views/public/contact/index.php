@@ -72,12 +72,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="widget-follow-us-2">
                         <ul>
-                            <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>FOLLOWE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>FOLLOW ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>FOLLOW ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>FOLLOW ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>SUBSCRIBE</a></li>
+                            <?php foreach($data['social_media'] as $social) : ?>
+                                <?php if($social['title'] === 'fab fa-facebook-f'){ ?>
+                                    <li class="single-item"><a href="<?php echo $social['url'] ?>" target="_blank"><i class="<?php echo $social['title'] ?>"></i>LIKE ME ON</a></li>
+                                <?php } else if($social['title'] === 'fab fa-youtube') { ?>
+                                    <li class="single-item"><a href="<?php echo $social['url'] ?>" target="_blank"><i class="<?php echo $social['title'] ?>"></i>SUBSCRIBE</a></li>
+                                <?php } else { ?>
+                                    <li class="single-item"><a href="<?php echo $social['url'] ?>" target="_blank"><i class="<?php echo $social['title'] ?>"></i>FOLLOWE ME</a></li>
+                                <?php } ?>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>

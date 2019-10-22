@@ -25,13 +25,9 @@
 				<div class="col-lg-4 d-flex justify-content-end">
 					<div class="header-action-items">
 						<ul class="divider-style-border">
-							<li class="item-social-layout2"> <a href="#"><i class="fab fa-facebook-f"></i></a></li>
-							<li class="item-social-layout2"> <a href="#"><i class="fab fa-twitter"></i></a></li>
-							<li class="item-social-layout2"> <a href="#"><i class="fab fa-instagram"></i></a></li>
-							<li class="item-social-layout2"> <a href="#"><i class="fab fa-youtube"></i></a></li>
-							<li class="item-social-layout2"> <a href="#"><i class="fas fa-rss"></i></a></li>
-							<li class="item-social-layout2"> <a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-							<li class="item-social-layout2"> <a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+							<?php foreach($social_media as $social) : ?>
+								<li class="item-social-layout2"> <a href="<?php echo $social['url'] ?>"><i class="<?php echo $social['title'] ?>"></i></a></li>
+							<?php endforeach; ?>
 						</ul>
 						<ul>
 							<li class="header-search-box">

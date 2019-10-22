@@ -7,10 +7,14 @@ class MY_Controller extends CI_Controller
 
   function __construct() {
     parent::__construct();
-    $this->data['page_title'] = 'CI App';
-    $this->data['page_description'] = 'CI_App';
+    $this->load->model('social_media_model');
+
+    $this->data['page_title'] = 'Blogxer';
+    $this->data['page_description'] = 'This is a description about blogging site made with codeigniter 3!';
     $this->data['before_head'] = '';
     $this->data['before_body'] = '';
+
+    $this->data['social_media'] = $this->social_media_model->geHeader();
   }
 
   protected function render($the_view = NULL, $data, $template = 'master') {
@@ -33,7 +37,6 @@ class Admin_Controller extends MY_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->data['page_title'] = 'CI App - Dashboard';
     }
 
     protected function render($the_view = NULL, $data, $template = 'admin_master') {

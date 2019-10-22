@@ -39,12 +39,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         tellus a odio tincidunt auctor. Proin gravida nibh vel 
                         velit auctor aliquet.</p>
                     <ul class="item-social">
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                        <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
-                        <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                        <?php foreach($data['social_media'] as $social) : ?>
+                            <li><a href="<?php echo $social['url'] ?>" target="_blank"><i class="<?php echo $social['title'] ?>"></i></a></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>

@@ -7,8 +7,32 @@ class Social_Media_model extends MY_Model
     public function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->model('social_media_model'); 
 	}
-	
+    
+    public function getAll() {
+        $social = $this->social_media_model->as_array()->get_all();
+        return $social;
+    }
+
+    public function geHeader() {
+        $this->social_media_model->take(7);
+        $social = $this->social_media_model->as_array()->get_all();
+        return $social;
+    }
+
+    public function get_six() {
+        $this->social_media_model->take(6);
+        $social = $this->social_media_model->as_array()->get_all();
+        return $social;
+    }
+
+    public function get_five() {
+        $this->social_media_model->take(5);
+        $social = $this->social_media_model->as_array()->get_all();
+        return $social;
+    }
+
 	public function insert_dummy()
     {
         $insert_data = array(

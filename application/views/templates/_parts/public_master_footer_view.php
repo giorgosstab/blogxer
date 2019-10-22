@@ -17,13 +17,9 @@
                     <div class="col-lg-4">
                         <div class="footer-box-layout1">
                             <ul class="footer-social">
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                                <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                                <li><a href="#"><i class="fab fa-github-alt"></i></a></li>
-                                <li><a href="#"><i class="fas fa-rss"></i></a></li>
+                                <?php foreach($social_media as $social) : ?>
+                                    <li> <a href="<?php echo $social['url'] ?>"><i class="<?php echo $social['title'] ?>"></i></a></li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                     </div>

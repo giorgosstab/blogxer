@@ -11,6 +11,26 @@ class MY_Controller extends CI_Controller
 
     $this->data['page_title'] = 'Blogxer';
     $this->data['page_description'] = 'This is a description about blogging site made with codeigniter 3!';
+    
+    $this->data['google_name'] = '';
+    $this->data['google_description'] = '';
+    $this->data['google_image'] = '';
+
+    $this->data['twitter_card'] = 'summary';
+    $this->data['twitter_site'] = '';
+    $this->data['twitter_title'] = '';
+    $this->data['twitter_description'] = '';
+    $this->data['twitter_creator'] = '';
+    $this->data['twitter_image'] = '';
+    
+    $this->data['og_title'] = '';
+    $this->data['og_type'] = 'article';
+    $this->data['og_url'] = '';
+    $this->data['og_image'] = '';
+    $this->data['og_description'] = '';
+    $this->data['og_site_name'] = '';
+    $this->data['fb_admins'] = '';
+
     $this->data['before_head'] = '';
     $this->data['before_body'] = '';
 

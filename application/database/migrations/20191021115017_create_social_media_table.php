@@ -14,8 +14,7 @@ class Migration_create_social_media_table extends CI_Migration {
 	public function up()
 	{
 		$this->dbforge->add_field('id');
-		$this->dbforge->add_field("`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
-		$this->dbforge->add_field("`updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+		$this->dbforge->timestamps();
 		$this->dbforge->create_table($this->_table_name, TRUE);
 	}
 

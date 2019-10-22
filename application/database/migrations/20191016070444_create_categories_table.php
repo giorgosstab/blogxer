@@ -34,8 +34,7 @@ class Migration_create_categories_table extends CI_Migration {
 				),
 			)
 		);
-		$this->dbforge->add_field("`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
-		$this->dbforge->add_field("`updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+		$this->dbforge->timestamps();
 
 		$this->dbforge->add_key('id', TRUE);
 		// $this->dbforge->add_field('CONSTRAINT FOREIGN KEY `fk_categories_parent_id` (parent_id) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE SET NULL');

@@ -30,8 +30,7 @@ class Migration_create_post_tag_table extends CI_Migration {
 				),
 			)
 		);
-		$this->dbforge->add_field("`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
-		$this->dbforge->add_field("`updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+		$this->dbforge->timestamps();
 		$this->dbforge->add_key('id', TRUE);
 
 		$this->dbforge->add_foreign_key(array(
@@ -43,13 +42,13 @@ class Migration_create_post_tag_table extends CI_Migration {
 			)
 		);
 		$this->dbforge->add_foreign_key(array(
-			'field' => 'tag_id',
-			'foreign_table' => 'tags',
-			'foreign_field' => 'id',
-			'delete' => 'SET NULL',
-			'update' => 'CASCADE',
-		)
-	);
+				'field' => 'tag_id',
+				'foreign_table' => 'tags',
+				'foreign_field' => 'id',
+				'delete' => 'SET NULL',
+				'update' => 'CASCADE',
+			)
+		);
 		$this->dbforge->create_table($this->_table_name, TRUE);
 	}
 

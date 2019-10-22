@@ -10,7 +10,7 @@
                     <div class="col-lg-4">
                         <div class="footer-box-layout1">
                             <div class="footer-logo">
-                                <a href="index.html"><img src="<?php echo path() ?>img/logo-light.png" alt="logo"></a>
+                                <a href="<?php echo site_url('/') ?>"><img src="<?php echo path() ?>img/logo-light.png" alt="logo"></a>
                             </div>
                         </div>
                     </div>
